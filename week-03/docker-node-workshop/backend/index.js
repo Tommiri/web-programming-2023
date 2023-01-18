@@ -1,41 +1,35 @@
-const mysql = require('mysql');
-require('dotenv').config();
+const cities = require('./cities');
 
-const connection = mysql.createConnection({
-  host: process.env.MYSQL_HOST,
-  user: process.env.MYSQL_USERNAME,
-  password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABASE,
-});
-
-connection.connect();
-
-connection.query('SELECT * FROM cities', (err, cities) => {
-  if (err) {
-    throw err;
+const getCities = async () => {
+  try {
+    const result = await cities.findAll();
+    console.log(result);
+  } catch (error) {
+    console.error(error);
   }
-  cities.forEach((city) =>
-    console.log(`${city.id}. ${city.capital} - ${city.country}`)
-  );
-});
-
-const newCity = {
-  capital: 'Paris',
-  country: 'France',
 };
 
-const query = connection.query(
-  'INSERT INTO cities SET ?',
-  newCity,
-  (err, results) => {
-    if (err) {
-      throw err;
-    }
-
-    console.log(results.affectedRows + ' record(s) inserted');
+const createCity = async () => {
+  const city = {
+    capital: 'Stockholm',
+    country: 'Sweden',
+  };
+  try {
+    const result = await cities.create(city);
+    console.log(result);
+  } catch (error) {
+    console.error(error);
   }
-);
+};
 
-console.log(query.sql);
+const closeConnection = async () => {
+  try {
+    console.log(await cities.close());
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-connection.end();
+createCity();
+getCities();
+closeConnection();
