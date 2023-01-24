@@ -1,0 +1,7 @@
+POST http://localhost:5000/api/cities
+Content-Type: application/json
+
+{
+  "capital": "Pretoria",
+  "country": "South Africa"
+}
