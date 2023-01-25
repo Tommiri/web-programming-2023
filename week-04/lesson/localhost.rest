@@ -1,0 +1,13 @@
+GET http://localhost:3000/api/cities
+
+###
+POST http://localhost:3000/api/cities
+Content-Type: application/json
+
+{
+    "capital": "Maputo",
+    "country": "Mozambique"
+}
+
+###
+DELETE http://localhost:3000/api/cities/2
