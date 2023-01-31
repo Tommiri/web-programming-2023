@@ -24,7 +24,10 @@ const cities = {
     handleQuery('SELECT * FROM cities WHERE id = ?;', id),
 
   findByCity: (city) =>
-    handleQuery('SELECT * FROM cities WHERE capital = ?;', city),
+    handleQuery(
+      'SELECT * FROM cities WHERE capital LIKE ? AND country LIKE ?;',
+      [city.capital, city.country]
+    ),
 
   create: (city) => handleQuery('INSERT INTO cities SET ?;', city),
 
