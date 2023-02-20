@@ -84,7 +84,7 @@ const deleteCity = async (req, res) => {
 
 module.exports = {
   getCities,
+  getCityById,
   createCity,
   deleteCity,
-  getCityById,
 };
